@@ -1,0 +1,273 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Onebox</title>
+  <meta name="description" content="A gem for turning URLs into website previews">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Onebox</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">A gem for turning URLs into website previews</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/dysania/onebox/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/dysania/onebox/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/dysania/onebox" class="code">View Onebox on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <ul>
+<li><a href="https://rubygems.org/gems/onebox"><img src="https://badge.fury.io/rb/onebox.png" alt="Gem Version"></a></li>
+<li><a href="https://codeclimate.com/github/dysania/onebox"><img src="https://codeclimate.com/github/dysania/onebox.png" alt="Code Climate"></a></li>
+<li><a href="https://travis-ci.org/dysania/onebox"><img src="https://travis-ci.org/dysania/onebox.png" alt="Build Status"></a></li>
+<li><a href="https://gemnasium.com/dysania/onebox"><img src="https://gemnasium.com/dysania/onebox.png" alt="Dependency Status"></a></li>
+<li><a href="https://coveralls.io/r/dysania/onebox"><img src="https://coveralls.io/repos/dysania/onebox/badge.png" alt="Coverage Status"></a></li>
+</ul><p>Onebox is a library for turning media URLs into previews.</p>
+
+<p>Onebox currently has support for page, image, and video URLs from these sites:</p>
+
+<ul>
+<li>Amazon</li>
+<li>Android App Store</li>
+<li>Apple Store</li>
+<li>BlipTV</li>
+<li>Clikthrough</li>
+<li>College Humor</li>
+<li>Dailymotion</li>
+<li>Dotsub</li>
+<li>Flickr</li>
+<li>Funny or Die</li>
+<li>Gist</li>
+<li>Github
+
+<ul>
+<li>Blob</li>
+<li>Commit</li>
+<li>Pull Request</li>
+</ul>
+</li>
+<li>Hulu</li>
+<li>Imgur</li>
+<li>Kinomap</li>
+<li>NFB</li>
+<li>Open Graph</li>
+<li>Qik</li>
+<li>Revision</li>
+<li>Rotten Tomatoes</li>
+<li>Slideshare</li>
+<li>Smugmug</li>
+<li>Soundcloud</li>
+<li>Stack Exchange</li>
+<li>TED</li>
+<li>Twitter</li>
+<li>Wikipedia</li>
+<li>yFrog</li>
+</ul><h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>Using onebox is fairly simple!
+First make sure the library is required:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"onebox"</span>
+</pre></div>
+
+<p>Then pass a link to the library's interface:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"onebox"</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"http://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2"</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="no">Onebox</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+
+<p>This will contain a simple Onebox::Preview object that handles all the transformation.
+From here you either call <code>Onebox::Preview#to_s</code> or just pass the object to a string:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"onebox"</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"http://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2"</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="no">Onebox</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="s2">"</span><span class="si">#{</span><span class="n">preview</span><span class="si">}</span><span class="s2">"</span> <span class="o">==</span> <span class="n">preview</span><span class="o">.</span><span class="n">to_s</span> <span class="c1">#=&gt; true</span>
+</pre></div>
+
+<p>Onebox has it's own caching system but you can also provide (or turn off) your own system:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"onebox"</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"http://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2"</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="no">Onebox</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="ss">cache</span><span class="p">:</span> <span class="no">Rails</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span>
+<span class="s2">"</span><span class="si">#{</span><span class="n">preview</span><span class="si">}</span><span class="s2">"</span> <span class="o">==</span> <span class="n">preview</span><span class="o">.</span><span class="n">to_s</span> <span class="c1">#=&gt; true</span>
+</pre></div>
+
+<p>In addition you can set your own defaults with this handy interface:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"onebox"</span>
+
+<span class="no">Onebox</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">cache</span><span class="p">:</span> <span class="no">Rails</span><span class="o">.</span><span class="n">cache</span>
+<span class="p">}</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"http://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2"</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="no">Onebox</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="s2">"</span><span class="si">#{</span><span class="n">preview</span><span class="si">}</span><span class="s2">"</span> <span class="o">==</span> <span class="n">preview</span><span class="o">.</span><span class="n">to_s</span> <span class="c1">#=&gt; true</span>
+</pre></div>
+
+<h1>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h1>
+
+<ol>
+<li>
+<p>Create new onebox engine</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"># in lib/onebox/engine/name_onebox.rb</span>
+
+<span class="k">module</span> <span class="nn">Onebox</span>
+  <span class="k">module</span> <span class="nn">Engine</span>
+    <span class="k">class</span> <span class="nc">NameOnebox</span>
+      <span class="kp">include</span> <span class="no">Engine</span>
+      <span class="kp">include</span> <span class="no">HTML</span>
+
+      <span class="kp">private</span>
+
+      <span class="k">def</span> <span class="nf">data</span>
+        <span class="p">{</span>
+          <span class="ss">url</span><span class="p">:</span> <span class="vi">@url</span><span class="p">,</span>
+          <span class="nb">name</span><span class="p">:</span> <span class="n">raw</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">"h1"</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="p">,</span>
+          <span class="ss">image</span><span class="p">:</span> <span class="n">raw</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">"#main-image"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s2">"src"</span><span class="o">]</span><span class="p">,</span>
+          <span class="ss">description</span><span class="p">:</span> <span class="n">raw</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">"#postBodyPS"</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span>
+        <span class="p">}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</li>
+<li>
+<p>Create new onebox spec</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"># in spec/lib/onebox/engine/name_spec.rb</span>
+<span class="nb">require</span> <span class="s2">"spec_helper"</span>
+
+<span class="n">describe</span> <span class="ss">Onebox</span><span class="p">:</span><span class="ss">:Engine</span><span class="o">::</span><span class="no">NameOnebox</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:link</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"http://yoursitename.com"</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:html</span><span class="p">)</span> <span class="p">{</span> <span class="n">described_class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">link</span><span class="p">)</span><span class="o">.</span><span class="n">to_html</span> <span class="p">}</span>
+
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="n">fake</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">response</span><span class="p">(</span><span class="s2">"name.response"</span><span class="p">))</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has the video's title"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">html</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"title"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has the video's still shot"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">html</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"photo.jpg"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has the video's description"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">html</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"description"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has the URL to the resource"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">html</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</li>
+<li>
+<p>Create new handlebars template</p>
+
+<div class="highlight highlight-html"><pre># in templates/name.handlebars
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"onebox"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{url}}"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>{{name}}<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"host"</span><span class="nt">&gt;</span>yoursitename.com<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"{{image}}"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{description}}<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</li>
+<li>
+<p>Create new fixture from HTML response</p>
+
+<div class="highlight highlight-bash"><pre>curl --output spec/fixtures/oneboxname.response -L -X -GET http://yoursitename.com
+</pre></div>
+</li>
+<li>
+<p>Require in Engine module</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"># in lib/onebox/engine/engine.rb</span>
+<span class="n">require_relative</span> <span class="s2">"engine/name_onebox"</span>
+</pre></div>
+</li>
+</ol><h1>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h1>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem "onebox". "~&gt; 1.0"
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install onebox
+</code></pre>
+
+<h1>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h1>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/dysania" class="avatar"><img src="https://2.gravatar.com/avatar/b2cc366f40995b5cc632a236782d6efc?d=https%3A%2F%2Fidenticons.github.com%2F8793d9028787906e6ca0d26581707377.png&amp;s=30" width="48" height="48"/></a> <a href="https://github.com/dysania">dysania</a> maintains <a href="https://github.com/dysania/onebox">Onebox</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/dysania/onebox/tarball/master" class="tar">tar</a><a href="https://github.com/dysania/onebox/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
